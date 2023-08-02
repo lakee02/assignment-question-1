@@ -19,7 +19,7 @@ const Dashboard = () => {
   const [searchText, setSearchText] = useState("");
   const [selectedOrderDetails, setSelectedOrderDetails] = useState({});
   const [selectedOrderTimeStamps, setSelectedOrderTimeStamps] = useState({});
-
+  const [rows, setRows] = useState(mockData.results);
   return (
     <div>
       <div className={styles.header}>
@@ -27,7 +27,19 @@ const Dashboard = () => {
         <div className={styles.actionBox}>
           <Search
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={(e) =>{
+              if(e.target.value===""){
+                setRows(mockData.results);
+              }else{
+                setRows(
+                  mockData["results"].filter((data)=>{
+                    return data["&id"]===e.target.value;
+                  })
+                )
+              }
+              
+              // setSearchText(e.target.value)
+            }}
           />
           <Dropdown
             options={["GBP", "USD", "JPY", "EUR"]}
@@ -47,7 +59,7 @@ const Dashboard = () => {
             title="Selected Order Timestamps"
           />
         </div>
-        <List rows={mockData.results} currency={currency} setSelectedOrderDetails={setSelectedOrderDetails} setSelectedOrderTimeStamps={setSelectedOrderTimeStamps}/>
+        <List rows={rows} currency={currency} setSelectedOrderDetails={setSelectedOrderDetails} setSelectedOrderTimeStamps={setSelectedOrderTimeStamps}/>
       </div>
     </div>
   );
