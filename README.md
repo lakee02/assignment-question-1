@@ -52,7 +52,22 @@ const List = ({ rows ,currency}) => {
   );
 };
 </p>
-
+<h2>4. Can you please add search feature on the order IDs with the search bar given in the header</h2>
+<p>
+  Sol. 
+   In dashboard.jsx i created a <b>useState</b> for set Row 
+   In code i make some changes 
+   onChange={(e) =>{
+              if(e.target.value===""){
+                setRows(mockData.results);
+              }else{
+                setRows(
+                  mockData["results"].filter((data)=>{
+                    return data["&id"]===e.target.value;
+                  })
+                )
+              }
+</p>
 <h2>5. Please clear the console errors and warnings.</h2>
 <p>
   sol. 
